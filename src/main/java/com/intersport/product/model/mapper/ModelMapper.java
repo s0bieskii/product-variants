@@ -13,5 +13,6 @@ public interface ModelMapper {
     ModelMapper MODEL_MAPPER = Mappers.getMapper(ModelMapper.class);
 
     Model addDtoToModel(ModelAddDto modelAddDto);
+
     ModelDto modelToDto(Model model);
 }

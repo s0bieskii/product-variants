@@ -2,9 +2,9 @@ package com.intersport.product.product;
 
 import com.intersport.product.product.dto.ProductAddDto;
 import com.intersport.product.product.dto.ProductDto;
+import com.intersport.product.product.dto.ProductUpdateDto;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,22 +36,25 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity getProduct(@PathVariable Long id) {
         ProductDto product = productService.getProduct(id);
-        if (product == null){
+        if (product == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(product);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity updateProduct(@PathVariable Long id) {
-        Optional<ProductDto> product = productService.update(id);
-        return null;
+    @PatchMapping()
+    public ResponseEntity updateProduct(@PathVariable ProductUpdateDto productToUpdate) {
+        ProductDto updatedProduct = productService.update(productToUpdate);
+        if (updatedProduct == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedProduct);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteProduct(@PathVariable Long id) {
         boolean deleteSuccess = productService.delete(id);
-        if(deleteSuccess){
+        if (deleteSuccess) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

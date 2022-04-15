@@ -2,9 +2,9 @@ package com.intersport.product.product;
 
 import com.intersport.product.product.dto.ProductAddDto;
 import com.intersport.product.product.dto.ProductDto;
+import com.intersport.product.product.dto.ProductUpdateDto;
 import com.intersport.product.product.mapper.ProductMapper;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +31,20 @@ public class ProductService {
         return productRepository.findById(id).map(productMapper::productToDto).orElse(null);
     }
 
-    public Optional<ProductDto> update(Long id) {
-        return null;
+    public ProductDto update(ProductUpdateDto productToUpdate) {
+        if (!productRepository.existsById(productToUpdate.getId())) {
+            return null;
+        }
+        Product productDb = productRepository.getById(productToUpdate.getId());
+        Product product = productMapper.productUpdate(productToUpdate);
+        product.setBrand(productDb.getBrand());
+        product.setModel(productDb.getModel());
+        Product savedProduct = productRepository.save(product);
+        return productMapper.productToDto(savedProduct);
     }
 
     public boolean delete(Long id) {
-        if(productRepository.existsById(id)){
+        if (productRepository.existsById(id)) {
             return false;
         }
         productRepository.delete(productRepository.getById(id));

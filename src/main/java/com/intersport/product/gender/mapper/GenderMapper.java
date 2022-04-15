@@ -1,6 +1,5 @@
 package com.intersport.product.gender.mapper;
 
-import com.intersport.product.brand.mapper.BrandMapper;
 import com.intersport.product.gender.Gender;
 import com.intersport.product.gender.GenderAddDto;
 import org.mapstruct.Mapper;
