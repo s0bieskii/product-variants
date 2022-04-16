@@ -54,7 +54,7 @@ public class BrandService {
 
 
     public boolean deleteBrand(Long id) {
-        if (brandRepository.existsById(id) && productRepository.findModelByBrandId(id).isPresent()) {
+        if (brandRepository.existsById(id) && productRepository.findByBrandId(id).isPresent()) {
             return false;
         }
         brandRepository.deleteById(id);

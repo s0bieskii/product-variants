@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface GenderMapper {
-    GenderMapper Gender_MAPPER = Mappers.getMapper(GenderMapper.class);
+    GenderMapper GENDER_MAPPER = Mappers.getMapper(GenderMapper.class);
 
     Gender addDtoToGender(GenderAddDto gender);
 
