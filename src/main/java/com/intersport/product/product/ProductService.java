@@ -5,7 +5,6 @@ import com.intersport.product.gender.GenderRepository;
 import com.intersport.product.product.dto.ProductAddDto;
 import com.intersport.product.product.dto.ProductDto;
 import com.intersport.product.product.dto.ProductUpdateDto;
-import com.intersport.product.product.mapper.ProductMapper;
 import com.intersport.product.type.TypeRepository;
 import java.util.List;
 import java.util.stream.Collectors;

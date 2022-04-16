@@ -1,6 +1,5 @@
-package com.intersport.product.gender.mapper;
+package com.intersport.product.gender;
 
-import com.intersport.product.gender.Gender;
 import com.intersport.product.gender.dto.GenderAddDto;
 import com.intersport.product.gender.dto.GenderUpdateDto;
 import org.mapstruct.Mapper;
@@ -11,5 +10,6 @@ public interface GenderMapper {
     GenderMapper Gender_MAPPER = Mappers.getMapper(GenderMapper.class);
 
     Gender addDtoToGender(GenderAddDto gender);
+
     Gender updateDtoToGender(GenderUpdateDto genderUpdateDto);
 }

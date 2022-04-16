@@ -2,8 +2,7 @@ package com.intersport.product.gender;
 
 import com.intersport.product.gender.dto.GenderAddDto;
 import com.intersport.product.gender.dto.GenderUpdateDto;
-import com.intersport.product.gender.mapper.GenderMapper;
-import com.intersport.product.model.repository.ModelRepository;
+import com.intersport.product.model.ModelRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,8 @@ public class GenderService {
     private final GenderMapper genderMapper;
     private final ModelRepository modelRepository;
 
-    public GenderService(GenderRepository genderRepository, GenderMapper genderMapper, ModelRepository modelRepository) {
+    public GenderService(GenderRepository genderRepository, GenderMapper genderMapper,
+                         ModelRepository modelRepository) {
         this.genderRepository = genderRepository;
         this.genderMapper = genderMapper;
         this.modelRepository = modelRepository;
@@ -34,14 +34,14 @@ public class GenderService {
     }
 
     public Gender getGender(Long id) {
-        if (!genderRepository.existsById(id)){
+        if (!genderRepository.existsById(id)) {
             return null;
         }
         return genderRepository.findById(id).get();
     }
 
     public Gender updateGender(GenderUpdateDto genderUpdateDto) {
-        if(!genderRepository.existsById(genderUpdateDto.id())){
+        if (!genderRepository.existsById(genderUpdateDto.id())) {
             return null;
         }
         Gender gender = genderMapper.updateDtoToGender(genderUpdateDto);
@@ -49,7 +49,7 @@ public class GenderService {
     }
 
     public boolean deleteGender(Long id) {
-        if(genderRepository.existsById(id) && modelRepository.findModelByGenderId(id).isPresent()){
+        if (genderRepository.existsById(id) && modelRepository.findModelByGenderId(id).isPresent()) {
             return false;
         }
         genderRepository.deleteById(id);

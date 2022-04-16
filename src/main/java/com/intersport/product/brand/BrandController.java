@@ -3,9 +3,6 @@ package com.intersport.product.brand;
 import com.intersport.product.brand.dto.BrandAddDto;
 import com.intersport.product.brand.dto.BrandDto;
 import com.intersport.product.brand.dto.BrandUpdateDto;
-import com.intersport.product.gender.Gender;
-import com.intersport.product.gender.dto.GenderAddDto;
-import com.intersport.product.gender.dto.GenderUpdateDto;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -33,7 +30,7 @@ public class BrandController {
     @PostMapping
     public ResponseEntity createBrand(@RequestBody BrandAddDto brandAddDto) throws URISyntaxException {
         BrandDto brand = brandService.create(brandAddDto);
-        if(brand == null) {
+        if (brand == null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource already exist");
         }
         return ResponseEntity.created(new URI("/api/genders/" + brand.id())).body(brand);
@@ -66,7 +63,7 @@ public class BrandController {
     @DeleteMapping
     public ResponseEntity deleteBrand(@PathVariable Long id) {
         boolean deleteSuccess = brandService.deleteBrand(id);
-        if(!deleteSuccess){
+        if (!deleteSuccess) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource is in use");
         }
         return ResponseEntity.noContent().build();

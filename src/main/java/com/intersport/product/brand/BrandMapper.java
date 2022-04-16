@@ -1,6 +1,5 @@
-package com.intersport.product.brand.mapper;
+package com.intersport.product.brand;
 
-import com.intersport.product.brand.Brand;
 import com.intersport.product.brand.dto.BrandAddDto;
 import com.intersport.product.brand.dto.BrandDto;
 import com.intersport.product.brand.dto.BrandUpdateDto;

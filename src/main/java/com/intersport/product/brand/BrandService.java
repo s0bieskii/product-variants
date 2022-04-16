@@ -3,7 +3,6 @@ package com.intersport.product.brand;
 import com.intersport.product.brand.dto.BrandAddDto;
 import com.intersport.product.brand.dto.BrandDto;
 import com.intersport.product.brand.dto.BrandUpdateDto;
-import com.intersport.product.brand.mapper.BrandMapper;
 import com.intersport.product.product.ProductRepository;
 import java.util.List;
 import java.util.Optional;

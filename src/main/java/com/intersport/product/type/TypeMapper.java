@@ -1,6 +1,5 @@
-package com.intersport.product.type.mapper;
+package com.intersport.product.type;
 
-import com.intersport.product.type.Type;
 import com.intersport.product.type.dto.TypeAddDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
