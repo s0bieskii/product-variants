@@ -11,6 +11,6 @@ import lombok.Setter;
 public class ModelAddDto {
 
     private String name;
-    private TypeAddDto type;
-    private ModelAddDto gender;
+    private Long typeId;
+    private Long genderId;
 }
