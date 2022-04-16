@@ -1,8 +1,8 @@
-package com.intersport.product.brand;
+package com.intersport.product.gender.brand;
 
-import com.intersport.product.brand.dto.BrandAddDto;
-import com.intersport.product.brand.dto.BrandDto;
-import com.intersport.product.brand.dto.BrandUpdateDto;
+import com.intersport.product.gender.brand.dto.BrandAddDto;
+import com.intersport.product.gender.brand.dto.BrandDto;
+import com.intersport.product.gender.brand.dto.BrandUpdateDto;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

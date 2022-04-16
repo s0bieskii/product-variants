@@ -1,7 +1,5 @@
 package com.intersport.product.model.dto;
 
-import com.intersport.product.gender.Gender;
-import com.intersport.product.type.Type;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +11,6 @@ public class ModelUpdateDto {
 
     private Long id;
     private String name;
-    private Type type;
-    private Gender gender;
+    private Long typeId;
+    private Long genderId;
 }
