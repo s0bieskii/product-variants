@@ -27,7 +27,7 @@ public class CategoryController {
     @PostMapping()
     public ResponseEntity createCategory(@RequestBody CategoryAddDto categoryAddDto) {
         Category category = categoryService.create(categoryAddDto);
-        if(category == null) {
+        if (category == null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Category already exist");
         }
         return ResponseEntity.ok(category);
@@ -42,16 +42,16 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity getCategory(@PathVariable Long id) {
         Category category = categoryService.getCategory(id);
-        if(category == null){
+        if (category == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(category);
     }
 
     @PatchMapping
-    public ResponseEntity updateCategory(@RequestBody CategoryUpdateDto categoryUpdateDto){
+    public ResponseEntity updateCategory(@RequestBody CategoryUpdateDto categoryUpdateDto) {
         Category category = categoryService.update(categoryUpdateDto);
-        if(category == null){
+        if (category == null) {
             return ResponseEntity.badRequest().body("Category not exist!");
         }
         return ResponseEntity.ok(category);
@@ -60,7 +60,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCategory(@PathVariable Long id) {
         boolean deleteSuccess = categoryService.delete(id);
-        if(!deleteSuccess){
+        if (!deleteSuccess) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource in use");
         }
         return ResponseEntity.noContent().build();

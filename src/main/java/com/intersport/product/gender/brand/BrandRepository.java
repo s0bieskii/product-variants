@@ -1,4 +1,4 @@
-package com.intersport.product.brand;
+package com.intersport.product.gender.brand;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

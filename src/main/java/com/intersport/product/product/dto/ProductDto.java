@@ -1,6 +1,6 @@
 package com.intersport.product.product.dto;
 
-import com.intersport.product.brand.dto.BrandDto;
+import com.intersport.product.gender.brand.dto.BrandDto;
 import com.intersport.product.model.dto.ModelDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.intersport.product.product;
 
-import com.intersport.product.brand.BrandMapper;
+import com.intersport.product.gender.brand.BrandMapper;
 import com.intersport.product.model.ModelMapper;
 import com.intersport.product.product.dto.ProductAddDto;
 import com.intersport.product.product.dto.ProductDto;

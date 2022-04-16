@@ -21,7 +21,7 @@ public class CategoryService {
     }
 
     public Category create(CategoryAddDto categoryAddDto) {
-        if(categoryRepository.findCategoryByName(categoryAddDto.name()).isPresent()){
+        if (categoryRepository.findCategoryByName(categoryAddDto.name()).isPresent()) {
             return null;
         }
         Category category = categoryMapper.addDtoToCategory(categoryAddDto);
@@ -37,7 +37,7 @@ public class CategoryService {
     }
 
     public Category update(CategoryUpdateDto categoryUpdateDto) {
-        if(!categoryRepository.existsById(categoryUpdateDto.id())){
+        if (!categoryRepository.existsById(categoryUpdateDto.id())) {
             return null;
         }
         Category category = categoryMapper.updateDtoToCategory(categoryUpdateDto);
@@ -46,7 +46,7 @@ public class CategoryService {
 
     //TODO validation for categoryExist
     public boolean delete(Long id) {
-        if(productRepository.findByCategoryId(id).isPresent()){
+        if (productRepository.findByCategoryId(id).isPresent()) {
             return false;
         }
         productRepository.deleteById(id);
