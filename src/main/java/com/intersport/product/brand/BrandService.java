@@ -24,7 +24,7 @@ public class BrandService {
     }
 
     public BrandDto create(BrandAddDto brandAddDto) {
-        if (brandRepository.findBrandByBrandName(brandAddDto.name()).isPresent()) {
+        if (brandRepository.findBrandByName(brandAddDto.name()).isPresent()) {
             return null;
         }
         Brand brand = brandMapper.addDtoToBrand(brandAddDto);
