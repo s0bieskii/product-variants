@@ -34,7 +34,7 @@ public class ProductService {
     //TODO create validation for allFields
     public Product createProduct(ProductAddDto productToAdd) {
         Product product = productMapper.addDtoToProduct(productToAdd);
-        product.setBrand(brandRepository.findById(productToAdd.brand().brandId()).get());
+        product.setBrand(brandRepository.findById(productToAdd.brandId()).get());
         product.getModel().setGender(genderRepository.findById(productToAdd.model().getGenderId()).get());
         product.getModel().setType(typeRepository.findById(productToAdd.model().getTypeId()).get());
         return productRepository.save(product);

@@ -3,6 +3,7 @@ package com.intersport.product.brand.mapper;
 import com.intersport.product.brand.Brand;
 import com.intersport.product.brand.dto.BrandAddDto;
 import com.intersport.product.brand.dto.BrandDto;
+import com.intersport.product.brand.dto.BrandUpdateDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,5 +13,7 @@ public interface BrandMapper {
 
     BrandDto brandToDto(Brand brand);
 
-    Brand addDtoToProduct(BrandAddDto brandAddDto);
+    Brand addDtoToBrand(BrandAddDto brandAddDto);
+
+    Brand updateDtoToBrand(BrandUpdateDto brandUpdateDto);
 }

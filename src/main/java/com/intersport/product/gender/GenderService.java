@@ -48,7 +48,6 @@ public class GenderService {
         return genderRepository.save(gender);
     }
 
-    //TODO create spring validation for checkIsUse
     public boolean deleteGender(Long id) {
         if(genderRepository.existsById(id) && modelRepository.findModelByGenderId(id).isPresent()){
             return false;

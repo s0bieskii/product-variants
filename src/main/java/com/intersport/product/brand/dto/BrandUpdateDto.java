@@ -1,4 +1,4 @@
 package com.intersport.product.brand.dto;
 
-public class BrandUpdateDto {
+public record BrandUpdateDto(Long id, String newName) {
 }

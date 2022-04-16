@@ -1,4 +1,4 @@
 package com.intersport.product.brand.dto;
 
-public record BrandAddDto(Long brandId) {
+public record BrandAddDto(String name) {
 }
