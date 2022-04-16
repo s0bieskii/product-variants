@@ -32,7 +32,7 @@ public class GenderController {
         if (gender == null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Gender already exists");
         }
-        return ResponseEntity.created(new URI("/api/genders/" + gender.getId())).build();
+        return ResponseEntity.created(new URI("/api/genders/" + gender.getId())).body(gender);
     }
 
     @GetMapping
@@ -62,7 +62,7 @@ public class GenderController {
     @DeleteMapping
     public ResponseEntity deleteGender(@PathVariable Long id) {
         boolean deleteSuccess = genderService.deleteGender(id);
-        if(!deleteSuccess){
+        if (!deleteSuccess) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource is in use");
         }
         return ResponseEntity.noContent().build();
