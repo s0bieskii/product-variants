@@ -13,6 +13,5 @@ public class Size {
     @GeneratedValue
     private Long id;
     private String size;
-    @OneToOne
-    private Category category;
+
 }
