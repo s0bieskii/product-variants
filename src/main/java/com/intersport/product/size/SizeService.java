@@ -24,7 +24,7 @@ public class SizeService {
     }
 
 
-    //TODO add validation for size exists
+    //TODO add validation for size exists wit hgiven name
     public Size create(SizeAddDto sizeAddDto) {
         if (!categoryRepository.findById(sizeAddDto.categoryId()).isPresent()) {
             return null;

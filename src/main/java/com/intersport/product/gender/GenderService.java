@@ -49,7 +49,7 @@ public class GenderService {
     }
 
     public boolean deleteGender(Long id) {
-        if (genderRepository.existsById(id) && modelRepository.findModelByGenderId(id).isPresent()) {
+        if (genderRepository.existsById(id) && modelRepository.findByGenderId(id).isPresent()) {
             return false;
         }
         genderRepository.deleteById(id);
