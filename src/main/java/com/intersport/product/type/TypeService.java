@@ -39,6 +39,7 @@ public class TypeService {
         }
         Type type = typeMapper.addDtoToType(typeAddDto);
         type = typeRepository.save(type);
+        LOGGER.info("Type create success " + type);
         return typeMapper.typeToDto(type);
     }
 
@@ -52,7 +53,7 @@ public class TypeService {
     public TypeDto getType(Long id) {
         LOGGER.info("getType with ID: " + id);
         return typeRepository.findById(id).map(typeMapper::typeToDto)
-                .orElseThrow(() -> new ResourceNotFound("Type with given ID not exist"));
+                .orElseThrow(() -> new ResourceNotFound("Type with given ID not exist ID: " + id));
     }
 
     @SneakyThrows
@@ -60,7 +61,7 @@ public class TypeService {
         LOGGER.info("updateType :" + typeUpdateDto);
         if (!typeRepository.existsById(typeUpdateDto.id())) {
             LOGGER.warning("Type with given ID not exist");
-            throw new ResourceNotFound("Type with given ID not exist");
+            throw new ResourceNotFound("Type with given ID not exist ID: " + typeUpdateDto.id());
         }
         Type type = typeMapper.updateDtoToType(typeUpdateDto);
         type = typeRepository.save(type);
