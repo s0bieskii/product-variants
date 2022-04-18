@@ -1,7 +1,6 @@
-package com.intersport.product.category;
+package com.intersport.product.category.dto;
 
-import com.intersport.product.category.dto.CategoryAddDto;
-import com.intersport.product.category.dto.CategoryUpdateDto;
+import com.intersport.product.category.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,4 +11,6 @@ public interface CategoryMapper {
     Category addDtoToCategory(CategoryAddDto categoryAddDto);
 
     Category updateDtoToCategory(CategoryUpdateDto categoryUpdateDto);
+
+    CategoryDto categoryToDto(Category category);
 }

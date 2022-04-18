@@ -59,7 +59,7 @@ public class SizeController {
         return ResponseEntity.ok(size);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteSize(@PathVariable Long id) {
         boolean deleteSuccess = sizeService.deleteSize(id);
         if (!deleteSuccess) {

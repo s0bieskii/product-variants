@@ -1,6 +1,7 @@
 package com.intersport.product.gender;
 
 import com.intersport.product.gender.dto.GenderAddDto;
+import com.intersport.product.gender.dto.GenderMapper;
 import com.intersport.product.gender.dto.GenderUpdateDto;
 import com.intersport.product.model.ModelRepository;
 import java.util.List;

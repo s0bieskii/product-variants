@@ -1,9 +1,10 @@
 package com.intersport.product.product;
 
 import com.intersport.product.gender.GenderRepository;
-import com.intersport.product.gender.brand.BrandRepository;
+import com.intersport.product.brand.BrandRepository;
 import com.intersport.product.product.dto.ProductAddDto;
 import com.intersport.product.product.dto.ProductDto;
+import com.intersport.product.product.dto.ProductMapper;
 import com.intersport.product.product.dto.ProductUpdateDto;
 import com.intersport.product.type.TypeRepository;
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.intersport.product.type;
 
 import com.intersport.product.model.ModelRepository;
-import com.intersport.product.type.Type;
 import com.intersport.product.type.dto.TypeAddDto;
+import com.intersport.product.type.dto.TypeMapper;
 import com.intersport.product.type.dto.TypeUpdateDto;
 import java.util.List;
 import org.springframework.stereotype.Service;

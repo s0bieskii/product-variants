@@ -1,7 +1,6 @@
-package com.intersport.product.gender;
+package com.intersport.product.gender.dto;
 
-import com.intersport.product.gender.dto.GenderAddDto;
-import com.intersport.product.gender.dto.GenderUpdateDto;
+import com.intersport.product.gender.Gender;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,4 +11,6 @@ public interface GenderMapper {
     Gender addDtoToGender(GenderAddDto gender);
 
     Gender updateDtoToGender(GenderUpdateDto genderUpdateDto);
+
+    GenderDto genderToDto(Gender gender);
 }

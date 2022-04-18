@@ -1,10 +1,8 @@
-package com.intersport.product.product;
+package com.intersport.product.product.dto;
 
-import com.intersport.product.gender.brand.BrandMapper;
-import com.intersport.product.model.ModelMapper;
-import com.intersport.product.product.dto.ProductAddDto;
-import com.intersport.product.product.dto.ProductDto;
-import com.intersport.product.product.dto.ProductUpdateDto;
+import com.intersport.product.brand.dto.BrandMapper;
+import com.intersport.product.model.dto.ModelMapper;
+import com.intersport.product.product.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

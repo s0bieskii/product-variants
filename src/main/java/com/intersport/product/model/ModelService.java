@@ -3,6 +3,7 @@ package com.intersport.product.model;
 import com.intersport.product.gender.GenderRepository;
 import com.intersport.product.model.dto.ModelAddDto;
 import com.intersport.product.model.dto.ModelDto;
+import com.intersport.product.model.dto.ModelMapper;
 import com.intersport.product.model.dto.ModelUpdateDto;
 import com.intersport.product.type.TypeRepository;
 import java.util.List;

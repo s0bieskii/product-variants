@@ -1,7 +1,7 @@
 package com.intersport.product.product;
 
 import com.intersport.product.category.Category;
-import com.intersport.product.gender.brand.Brand;
+import com.intersport.product.brand.Brand;
 import com.intersport.product.model.Model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.intersport.product.gender.brand;
+package com.intersport.product.brand;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
