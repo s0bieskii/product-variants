@@ -1,7 +1,7 @@
 package com.intersport.product.product;
 
-import com.intersport.product.gender.GenderRepository;
 import com.intersport.product.brand.BrandRepository;
+import com.intersport.product.gender.GenderRepository;
 import com.intersport.product.product.dto.ProductAddDto;
 import com.intersport.product.product.dto.ProductDto;
 import com.intersport.product.product.dto.ProductMapper;
