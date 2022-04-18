@@ -62,10 +62,7 @@ public class BrandController {
 
     @DeleteMapping
     public ResponseEntity deleteBrand(@PathVariable Long id) {
-        boolean deleteSuccess = brandService.deleteBrand(id);
-        if (!deleteSuccess) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource is in use");
-        }
+        brandService.deleteBrand(id);
         return ResponseEntity.noContent().build();
     }
 
