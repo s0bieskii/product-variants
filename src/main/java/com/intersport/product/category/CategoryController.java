@@ -1,6 +1,7 @@
 package com.intersport.product.category;
 
 import com.intersport.product.category.dto.CategoryAddDto;
+import com.intersport.product.category.dto.CategoryDto;
 import com.intersport.product.category.dto.CategoryUpdateDto;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -25,44 +26,32 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public ResponseEntity createCategory(@RequestBody CategoryAddDto categoryAddDto) {
-        Category category = categoryService.create(categoryAddDto);
-        if (category == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Category already exist");
-        }
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryAddDto categoryAddDto) {
+        CategoryDto category = categoryService.create(categoryAddDto);
         return ResponseEntity.ok(category);
     }
 
     @GetMapping
-    public ResponseEntity getAllCategories() {
-        List<Category> categories = categoryService.getAll();
+    public ResponseEntity<List<CategoryDto>> getAllCategories() {
+        List<CategoryDto> categories = categoryService.getAll();
         return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getCategory(@PathVariable Long id) {
-        Category category = categoryService.getCategory(id);
-        if (category == null) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<CategoryDto> getCategory(@PathVariable Long id) {
+        CategoryDto category = categoryService.getCategory(id);
         return ResponseEntity.ok(category);
     }
 
     @PatchMapping
     public ResponseEntity updateCategory(@RequestBody CategoryUpdateDto categoryUpdateDto) {
-        Category category = categoryService.update(categoryUpdateDto);
-        if (category == null) {
-            return ResponseEntity.badRequest().body("Category not exist!");
-        }
+        CategoryDto category = categoryService.update(categoryUpdateDto);
         return ResponseEntity.ok(category);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCategory(@PathVariable Long id) {
-        boolean deleteSuccess = categoryService.delete(id);
-        if (!deleteSuccess) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource in use");
-        }
+        categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

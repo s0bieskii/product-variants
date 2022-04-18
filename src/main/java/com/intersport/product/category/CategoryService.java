@@ -1,15 +1,26 @@
 package com.intersport.product.category;
 
 import com.intersport.product.category.dto.CategoryAddDto;
+import com.intersport.product.category.dto.CategoryDto;
 import com.intersport.product.category.dto.CategoryMapper;
 import com.intersport.product.category.dto.CategoryUpdateDto;
+import com.intersport.product.gender.Gender;
+import com.intersport.product.gender.GenderService;
 import com.intersport.product.product.ProductRepository;
+import com.intersport.product.utils.exceptions.ResourceExistException;
+import com.intersport.product.utils.exceptions.ResourceInUseException;
+import com.intersport.product.utils.exceptions.ResourceNotFound;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryService {
 
+    public static final Logger LOGGER = Logger.getLogger(CategoryService.class.getName());
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
     private final ProductRepository productRepository;
@@ -21,37 +32,52 @@ public class CategoryService {
         this.productRepository = productRepository;
     }
 
-    public Category create(CategoryAddDto categoryAddDto) {
-        if (categoryRepository.findCategoryByName(categoryAddDto.name()).isPresent()) {
-            return null;
+    @SneakyThrows
+    public CategoryDto create(CategoryAddDto categoryAddDto) {
+        LOGGER.info("create " + categoryAddDto);
+        Optional<Category> categoryExist = categoryRepository.findByNameIgnoreCase(categoryAddDto.name());
+        if (categoryExist.isPresent()) {
+            LOGGER.info("Category with given name already exist NAME" + categoryAddDto.name());
+            throw new ResourceExistException("Category with given name already exist");
         }
         Category category = categoryMapper.addDtoToCategory(categoryAddDto);
-        return categoryRepository.save(category);
+        category = categoryRepository.save(category);
+        LOGGER.info("Category create success " + category);
+        return categoryMapper.categoryToDto(category);
     }
 
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
+    public List<CategoryDto> getAll() {
+        List<Category> categories = categoryRepository.findAll();
+        LOGGER.info("getAll FOUND: " + categories.size() + "categories");
+        return categories.stream().map(categoryMapper::categoryToDto).collect(Collectors.toList());
     }
 
-    public Category getCategory(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+    @SneakyThrows
+    public CategoryDto getCategory(Long id) {
+        return categoryRepository.findById(id).map(categoryMapper::categoryToDto)
+                .orElseThrow(() -> new ResourceNotFound("Category with given ID not exist ID: " + id));
     }
 
-    public Category update(CategoryUpdateDto categoryUpdateDto) {
+    @SneakyThrows
+    public CategoryDto update(CategoryUpdateDto categoryUpdateDto) {
         if (!categoryRepository.existsById(categoryUpdateDto.id())) {
-            return null;
+            throw new ResourceNotFound("Category with given ID not exist ID: " + categoryUpdateDto.id());
         }
         Category category = categoryMapper.updateDtoToCategory(categoryUpdateDto);
-        return categoryRepository.save(category);
+        category = categoryRepository.save(category);
+        return categoryMapper.categoryToDto(category);
     }
 
-    //TODO validation for categoryExist
-    public boolean delete(Long id) {
-        if (productRepository.findByCategoryId(id).isPresent()) {
-            return false;
+    @SneakyThrows
+    public void delete(Long id) {
+        if(!categoryRepository.existsById(id)){
+            LOGGER.warning("Category with given ID not exist");
+            throw new ResourceNotFound("Category with given ID not exist");
+        } else if (productRepository.findByCategoryId(id).isPresent()) {
+            LOGGER.info("Category is in use");
+            throw new ResourceInUseException("Category is in use");
         }
-        productRepository.deleteById(id);
-        return true;
-
+        LOGGER.info("Gender delete success");
+        categoryRepository.deleteById(id);
     }
 }
