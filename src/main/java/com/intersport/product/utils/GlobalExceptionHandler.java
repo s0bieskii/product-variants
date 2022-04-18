@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({ResourceExistException.class})
     public ResponseEntity<String> handleResourceExistException(ResourceExistException exception) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Type already exists");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource already exists");
     }
 
 

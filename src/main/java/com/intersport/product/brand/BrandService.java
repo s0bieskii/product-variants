@@ -40,14 +40,14 @@ public class BrandService {
         }
         Brand brand = brandMapper.addDtoToBrand(brandAddDto);
         Brand savedBrand = brandRepository.save(brand);
-        LOGGER.info("Category create success " + savedBrand);
+        LOGGER.info("Brand create success " + savedBrand);
         return brandMapper.brandToDto(savedBrand);
     }
 
 
     public List<BrandDto> getAll() {
         List<Brand> brands = brandRepository.findAll();
-        LOGGER.info("getAll FOUND: " + brands.size() + "brands");
+        LOGGER.info("getAll FOUND: " + brands.size() + " brands");
         return brands.stream().map(brandMapper::brandToDto).collect(Collectors.toList());
     }
 
