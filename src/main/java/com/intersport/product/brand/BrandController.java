@@ -30,9 +30,6 @@ public class BrandController {
     @PostMapping
     public ResponseEntity createBrand(@RequestBody BrandAddDto brandAddDto) throws URISyntaxException {
         BrandDto brand = brandService.create(brandAddDto);
-        if (brand == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource already exist");
-        }
         return ResponseEntity.created(new URI("/api/genders/" + brand.id())).body(brand);
     }
 
@@ -45,22 +42,16 @@ public class BrandController {
     @GetMapping("/{id}")
     public ResponseEntity getBrand(@PathVariable Long id) {
         BrandDto brand = brandService.getBrand(id);
-        if (brand == null) {
-            return ResponseEntity.badRequest().build();
-        }
         return ResponseEntity.ok(brand);
     }
 
     @PatchMapping
     public ResponseEntity updateBrand(@RequestBody BrandUpdateDto brandUpdateDto) {
         BrandDto brand = brandService.updateBrand(brandUpdateDto);
-        if (brand == null) {
-            return ResponseEntity.badRequest().build();
-        }
         return ResponseEntity.ok(brand);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteBrand(@PathVariable Long id) {
         brandService.deleteBrand(id);
         return ResponseEntity.noContent().build();
