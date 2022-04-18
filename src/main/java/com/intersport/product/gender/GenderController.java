@@ -1,6 +1,7 @@
 package com.intersport.product.gender;
 
 import com.intersport.product.gender.dto.GenderAddDto;
+import com.intersport.product.gender.dto.GenderDto;
 import com.intersport.product.gender.dto.GenderUpdateDto;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,43 +29,31 @@ public class GenderController {
 
     @PostMapping
     public ResponseEntity createGender(@RequestBody GenderAddDto genderAddDto) throws URISyntaxException {
-        Gender gender = genderService.create(genderAddDto);
-        if (gender == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Gender already exists");
-        }
-        return ResponseEntity.created(new URI("/api/genders/" + gender.getId())).body(gender);
+        GenderDto gender = genderService.create(genderAddDto);
+        return ResponseEntity.created(new URI("/api/genders/" + gender.id())).body(gender);
     }
 
     @GetMapping
-    public ResponseEntity getAllGenders() {
-        List<Gender> genders = genderService.getAll();
+    public ResponseEntity<List<GenderDto>> getAllGenders() {
+        List<GenderDto> genders = genderService.getAll();
         return ResponseEntity.ok(genders);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getGender(@PathVariable Long id) {
-        Gender gender = genderService.getGender(id);
-        if (gender == null) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<GenderDto> getGender(@PathVariable Long id) {
+        GenderDto gender = genderService.getGender(id);
         return ResponseEntity.ok(gender);
     }
 
     @PatchMapping
-    public ResponseEntity updateGender(@RequestBody GenderUpdateDto genderUpdateDto) {
-        Gender genderAfterUpdate = genderService.updateGender(genderUpdateDto);
-        if (genderAfterUpdate == null) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<GenderDto> updateGender(@RequestBody GenderUpdateDto genderUpdateDto) {
+        GenderDto genderAfterUpdate = genderService.updateGender(genderUpdateDto);
         return ResponseEntity.ok(genderAfterUpdate);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteGender(@PathVariable Long id) {
-        boolean deleteSuccess = genderService.deleteGender(id);
-        if (!deleteSuccess) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource is in use");
-        }
+        genderService.deleteGender(id);
         return ResponseEntity.noContent().build();
     }
 

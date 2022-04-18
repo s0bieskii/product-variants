@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GenderRepository extends JpaRepository<Gender, Long> {
 
-    Optional<Gender> findGenderByNameIgnoreCase(String name);
+    Optional<Gender> findByNameIgnoreCase(String name);
 }

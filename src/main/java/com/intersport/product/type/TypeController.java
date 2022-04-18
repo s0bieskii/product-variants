@@ -41,9 +41,6 @@ public class TypeController {
     @GetMapping("/{id}")
     public ResponseEntity<TypeDto> getType(@PathVariable Long id) {
         TypeDto size = typeService.getType(id);
-        if (size == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(size);
     }
 
