@@ -1,4 +1,4 @@
 package com.intersport.product.category.dto;
 
-public class CategoryDto {
+public record CategoryDto(Long id, String name) {
 }

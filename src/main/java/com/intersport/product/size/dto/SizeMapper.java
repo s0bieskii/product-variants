@@ -1,11 +1,11 @@
-package com.intersport.product.size;
+package com.intersport.product.size.dto;
 
-import com.intersport.product.size.dto.SizeAddDto;
-import com.intersport.product.size.dto.SizeUpdateDto;
+import com.intersport.product.category.dto.CategoryMapper;
+import com.intersport.product.size.Size;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = {CategoryMapper.class})
 public interface SizeMapper {
     SizeMapper SIZE_MAPPER = Mappers.getMapper(SizeMapper.class);
 

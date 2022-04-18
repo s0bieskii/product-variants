@@ -2,6 +2,7 @@ package com.intersport.product.size;
 
 import com.intersport.product.category.CategoryRepository;
 import com.intersport.product.size.dto.SizeAddDto;
+import com.intersport.product.size.dto.SizeMapper;
 import com.intersport.product.size.dto.SizeUpdateDto;
 import com.intersport.product.variant.VariantRepository;
 import java.util.List;

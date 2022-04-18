@@ -1,6 +1,7 @@
 package com.intersport.product.category;
 
 import com.intersport.product.category.dto.CategoryAddDto;
+import com.intersport.product.category.dto.CategoryMapper;
 import com.intersport.product.category.dto.CategoryUpdateDto;
 import com.intersport.product.product.ProductRepository;
 import java.util.List;

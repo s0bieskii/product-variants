@@ -1,9 +1,7 @@
-package com.intersport.product.model;
+package com.intersport.product.model.dto;
 
-import com.intersport.product.gender.GenderMapper;
-import com.intersport.product.model.dto.ModelAddDto;
-import com.intersport.product.model.dto.ModelDto;
-import com.intersport.product.model.dto.ModelUpdateDto;
+import com.intersport.product.gender.dto.GenderMapper;
+import com.intersport.product.model.Model;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.convert.TypeMapper;
