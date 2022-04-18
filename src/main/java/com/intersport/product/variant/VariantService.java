@@ -41,15 +41,15 @@ public class VariantService {
     }
 
     public VariantDto getVariant(Long id) {
-        Optional<Variant> variant =  variantRepository.findBySizeId(id);
-        if(!variant.isPresent()){
+        Optional<Variant> variant = variantRepository.findBySizeId(id);
+        if (!variant.isPresent()) {
             return null;
         }
         return variantMapper.variantToDto(variant.get());
     }
 
     public VariantDto update(VariantUpdateDto variantUpdateDto) {
-        if(!variantRepository.existsById(variantUpdateDto.getId())) {
+        if (!variantRepository.existsById(variantUpdateDto.getId())) {
             return null;
         }
         Variant variant = variantMapper.updateDtoToVariant(variantUpdateDto);
@@ -60,7 +60,7 @@ public class VariantService {
     }
 
     public boolean delete(Long id) {
-        if(!variantRepository.existsById(id)){
+        if (!variantRepository.existsById(id)) {
             return false;
         }
         variantRepository.deleteById(id);

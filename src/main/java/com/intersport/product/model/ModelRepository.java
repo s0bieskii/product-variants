@@ -1,6 +1,5 @@
 package com.intersport.product.model;
 
-import com.intersport.product.gender.Gender;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

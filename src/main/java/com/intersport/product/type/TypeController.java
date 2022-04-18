@@ -1,11 +1,11 @@
 package com.intersport.product.type;
 
 import com.intersport.product.type.dto.TypeAddDto;
+import com.intersport.product.type.dto.TypeDto;
 import com.intersport.product.type.dto.TypeUpdateDto;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,43 +28,33 @@ public class TypeController {
 
     @PostMapping
     public ResponseEntity createType(@RequestBody TypeAddDto typeAddDto) throws URISyntaxException {
-        Type type = typeService.create(typeAddDto);
-        if (type == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Type already exists");
-        }
-        return ResponseEntity.created(new URI("/api/sizes/" + type.getId())).body(type);
+        TypeDto type = typeService.create(typeAddDto);
+        return ResponseEntity.created(new URI("/api/sizes/" + type.id())).body(type);
     }
 
     @GetMapping
-    public ResponseEntity getAllTypes() {
-        List<Type> sizes = typeService.getAll();
+    public ResponseEntity<List<TypeDto>> getAllTypes() {
+        List<TypeDto> sizes = typeService.getAll();
         return ResponseEntity.ok(sizes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getType(@PathVariable Long id) {
-        Type size = typeService.getType(id);
+    public ResponseEntity<TypeDto> getType(@PathVariable Long id) {
+        TypeDto size = typeService.getType(id);
         if (size == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(size);
     }
 
     @PatchMapping
-    public ResponseEntity updateType(@RequestBody TypeUpdateDto sizeUpdateDto) {
-        Type size = typeService.updateType(sizeUpdateDto);
-        if (size == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(size);
+    public ResponseEntity<TypeDto> updateType(@RequestBody TypeUpdateDto sizeUpdateDto) {
+        return ResponseEntity.ok(typeService.updateType(sizeUpdateDto));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteType(@PathVariable Long id) {
-        boolean deleteSuccess = typeService.deleteType(id);
-        if (!deleteSuccess) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource is in use");
-        }
+        typeService.deleteType(id);
         return ResponseEntity.noContent().build();
     }
 }

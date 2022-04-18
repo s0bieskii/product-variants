@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/variants")
 public class VariantController {
 
-    private VariantService variantService;
+    private final VariantService variantService;
 
     public VariantController(VariantService variantService) {
         this.variantService = variantService;
@@ -41,7 +41,7 @@ public class VariantController {
     @GetMapping("/{id}")
     public ResponseEntity getVariant(@PathVariable Long id) {
         VariantDto variant = variantService.getVariant(id);
-        if(variant == null){
+        if (variant == null) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(variant);
@@ -50,16 +50,16 @@ public class VariantController {
     @PatchMapping()
     public ResponseEntity updateVariant(VariantUpdateDto variantUpdateDto) {
         VariantDto variant = variantService.update(variantUpdateDto);
-        if(variant == null) {
+        if (variant == null) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(variant);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteVariant(@PathVariable Long id){
+    public ResponseEntity deleteVariant(@PathVariable Long id) {
         boolean isDeleted = variantService.delete(id);
-        if(!isDeleted) {
+        if (!isDeleted) {
             return ResponseEntity.badRequest().body("Resource with given ID not exist");
         }
         return ResponseEntity.noContent().build();
