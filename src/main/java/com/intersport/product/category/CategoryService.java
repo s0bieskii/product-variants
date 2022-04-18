@@ -77,7 +77,7 @@ public class CategoryService {
             LOGGER.info("Category is in use");
             throw new ResourceInUseException("Category is in use");
         }
-        LOGGER.info("Gender delete success");
+        LOGGER.info("Category delete success");
         categoryRepository.deleteById(id);
     }
 }
