@@ -30,6 +30,7 @@ public class ModelService {
         Model model = modelMapper.addDtoToModel(modelAddDto);
         model.setType(typeRepository.getById(modelAddDto.getTypeId()));
         model.setGender(genderRepository.getById(modelAddDto.getGenderId()));
+        model = modelRepository.save(model);
         return modelMapper.modelToDto(model);
     }
 

@@ -1,6 +1,8 @@
 package com.intersport.product.product.dto;
 
 import com.intersport.product.brand.dto.BrandDto;
+import com.intersport.product.category.Category;
+import com.intersport.product.category.dto.CategoryDto;
 import com.intersport.product.model.dto.ModelDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class ProductDto {
     private Long id;
     private ModelDto model;
     private BrandDto brand;
+    private CategoryDto category;
 }
