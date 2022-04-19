@@ -75,7 +75,7 @@ public class TypeService {
         if (!typeRepository.existsById(id)) {
             LOGGER.warning("Type with given ID not exist");
             throw new ResourceNotFound("Type with given ID not exist");
-        } else if (modelRepository.findByTypeId(id).isPresent()) {
+        } else if (!modelRepository.findByTypeId(id).isEmpty()) {
             LOGGER.info("Type is in use");
             throw new ResourceInUseException("Type is in use");
         }

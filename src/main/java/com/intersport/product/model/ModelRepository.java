@@ -1,11 +1,12 @@
 package com.intersport.product.model;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ModelRepository extends JpaRepository<Model, Long> {
 
-    Optional<Model> findByGenderId(Long id);
+    List<Model> findByGenderId(Long id);
 
-    Optional<Model> findByTypeId(Long name);
+    List<Model> findByTypeId(Long name);
 }

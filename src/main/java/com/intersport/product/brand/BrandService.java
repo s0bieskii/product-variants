@@ -53,7 +53,6 @@ public class BrandService {
 
     @SneakyThrows
     public BrandDto getBrand(Long id) {
-
         return brandRepository.findById(id).map(brandMapper::brandToDto)
                 .orElseThrow(() -> new ResourceNotFound("Brand with given ID not exist ID: " + id));
     }
@@ -70,7 +69,7 @@ public class BrandService {
 
     @SneakyThrows
     public void deleteBrand(Long id) {
-        if(!brandRepository.existsById(id)){
+        if (!brandRepository.existsById(id)) {
             LOGGER.warning("Brand with given ID not exist");
             throw new ResourceNotFound("Brand with given ID not exist");
         } else if (productRepository.findByBrandId(id).isPresent()) {
