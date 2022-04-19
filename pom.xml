@@ -60,7 +60,11 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.5.9</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>8.5.8</version>
+        </dependency>
     </dependencies>
 
     <build>

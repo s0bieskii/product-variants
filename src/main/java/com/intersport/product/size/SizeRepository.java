@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SizeRepository extends JpaRepository<Size, Long> {
 
-    Optional<Size> findBySizeAndCategoryId(String size, Long categoryId);
+    Optional<Size> findBySizeAndSizeCategoryId(String size, Long sizeCategoryId);
 
-    List<Size> findByCategoryId(Long id);
+    List<Size> findBySizeCategoryId(Long id);
 }
