@@ -3,6 +3,7 @@ package com.intersport.product.product;
 import com.intersport.product.product.dto.ProductAddDto;
 import com.intersport.product.product.dto.ProductDto;
 import com.intersport.product.product.dto.ProductUpdateDto;
+import com.intersport.product.product.dto.ProductWithModelAddDto;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/api/products")
@@ -23,7 +25,13 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public ResponseEntity createProduct(ProductAddDto productToAdd) throws URISyntaxException {
+    public ResponseEntity createProductWithModel(@RequestBody ProductWithModelAddDto productToAdd) throws URISyntaxException {
+        Product savedProduct = productService.createProductWithModel(productToAdd);
+        return ResponseEntity.created(new URI("/api/products/" + savedProduct.getId())).build();
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity createProduct(@RequestBody ProductAddDto productToAdd) throws URISyntaxException {
         Product savedProduct = productService.createProduct(productToAdd);
         return ResponseEntity.created(new URI("/api/products/" + savedProduct.getId())).build();
     }
@@ -43,7 +51,7 @@ public class ProductController {
     }
 
     @PatchMapping()
-    public ResponseEntity updateProduct(@PathVariable ProductUpdateDto productToUpdate) {
+    public ResponseEntity updateProduct(@RequestBody ProductUpdateDto productToUpdate) {
         ProductDto updatedProduct = productService.update(productToUpdate);
         if (updatedProduct == null) {
             return ResponseEntity.notFound().build();
@@ -53,11 +61,8 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteProduct(@PathVariable Long id) {
-        boolean deleteSuccess = productService.delete(id);
-        if (deleteSuccess) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

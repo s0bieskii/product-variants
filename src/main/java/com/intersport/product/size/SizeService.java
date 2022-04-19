@@ -61,12 +61,14 @@ public class SizeService {
 
     @SneakyThrows
     public SizeDto getSize(Long id) {
+
         return sizeRepository.findById(id).map(sizeMapper::sizeToDto)
                 .orElseThrow(() -> new ResourceNotFound("Size with given ID not exist ID: " + id));
     }
 
     @SneakyThrows
     public SizeDto updateSize(SizeUpdateDto sizeUpdateDto) {
+        LOGGER.info("updateSize : " + sizeUpdateDto);
         if (!sizeRepository.findById(sizeUpdateDto.id()).isPresent()) {
             LOGGER.info("Size with given ID not exist ID: " + sizeUpdateDto.size());
             throw new ResourceNotFound("Size with given ID not exist ID: " + sizeUpdateDto.size());
@@ -79,6 +81,7 @@ public class SizeService {
         Size size = sizeMapper.updateDtoToSize(sizeUpdateDto);
         size.setCategory(categoryRepository.getById(sizeUpdateDto.categoryId()));
         size = sizeRepository.save(size);
+        LOGGER.info("Size update success: " + size);
         return sizeMapper.sizeToDto(size);
     }
 

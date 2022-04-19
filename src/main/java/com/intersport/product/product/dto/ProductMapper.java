@@ -15,4 +15,6 @@ public interface ProductMapper {
     Product addDtoToProduct(ProductAddDto productAddDto);
 
     Product productUpdate(ProductUpdateDto productUpdate);
+
+    Product addDtoWithModelToProduct(ProductWithModelAddDto productWithModelAddDto);
 }
