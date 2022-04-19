@@ -13,4 +13,6 @@ public interface SizeMapper {
 
     Size updateDtoToSize(SizeUpdateDto size);
 
+    SizeDto sizeToDto(Size size);
+
 }

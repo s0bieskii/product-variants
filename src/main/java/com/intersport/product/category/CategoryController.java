@@ -4,7 +4,6 @@ import com.intersport.product.category.dto.CategoryAddDto;
 import com.intersport.product.category.dto.CategoryDto;
 import com.intersport.product.category.dto.CategoryUpdateDto;
 import java.util.List;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

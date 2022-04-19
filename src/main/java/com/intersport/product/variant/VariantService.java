@@ -41,7 +41,7 @@ public class VariantService {
     }
 
     public VariantDto getVariant(Long id) {
-        Optional<Variant> variant = variantRepository.findBySizeId(id);
+        Optional<Variant> variant = variantRepository.findById(id);
         if (!variant.isPresent()) {
             return null;
         }

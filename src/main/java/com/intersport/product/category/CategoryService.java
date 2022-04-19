@@ -4,9 +4,8 @@ import com.intersport.product.category.dto.CategoryAddDto;
 import com.intersport.product.category.dto.CategoryDto;
 import com.intersport.product.category.dto.CategoryMapper;
 import com.intersport.product.category.dto.CategoryUpdateDto;
-import com.intersport.product.gender.Gender;
-import com.intersport.product.gender.GenderService;
 import com.intersport.product.product.ProductRepository;
+import com.intersport.product.size.SizeRepository;
 import com.intersport.product.utils.exceptions.ResourceExistException;
 import com.intersport.product.utils.exceptions.ResourceInUseException;
 import com.intersport.product.utils.exceptions.ResourceNotFound;
@@ -24,12 +23,15 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
     private final ProductRepository productRepository;
+    private final SizeRepository sizeRepository;
 
-    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper,
-                           ProductRepository productRepository) {
+    public CategoryService(CategoryRepository categoryRepository,
+                           CategoryMapper categoryMapper,
+                           ProductRepository productRepository, SizeRepository sizeRepository) {
         this.categoryRepository = categoryRepository;
         this.categoryMapper = categoryMapper;
         this.productRepository = productRepository;
+        this.sizeRepository = sizeRepository;
     }
 
     @SneakyThrows
@@ -70,10 +72,11 @@ public class CategoryService {
 
     @SneakyThrows
     public void delete(Long id) {
-        if(!categoryRepository.existsById(id)){
+        if (!categoryRepository.existsById(id)) {
             LOGGER.warning("Category with given ID not exist");
             throw new ResourceNotFound("Category with given ID not exist");
-        } else if (productRepository.findByCategoryId(id).isPresent()) {
+        } else if (!productRepository.findByCategoryId(id).isEmpty() ||
+                !sizeRepository.findByCategoryId(id).isEmpty()) {
             LOGGER.info("Category is in use");
             throw new ResourceInUseException("Category is in use");
         }

@@ -5,7 +5,6 @@ import com.intersport.product.gender.dto.GenderDto;
 import com.intersport.product.gender.dto.GenderMapper;
 import com.intersport.product.gender.dto.GenderUpdateDto;
 import com.intersport.product.model.ModelRepository;
-import com.intersport.product.type.TypeService;
 import com.intersport.product.utils.exceptions.ResourceExistException;
 import com.intersport.product.utils.exceptions.ResourceInUseException;
 import com.intersport.product.utils.exceptions.ResourceNotFound;
@@ -75,7 +74,7 @@ public class GenderService {
         if (!genderRepository.existsById(id)) {
             LOGGER.warning("Gender with given ID not exist");
             throw new ResourceNotFound("Gender with given ID not exist");
-        } else if (modelRepository.findByGenderId(id).isPresent()) {
+        } else if (!modelRepository.findByGenderId(id).isEmpty()) {
             LOGGER.info("Gender is in use");
             throw new ResourceInUseException("Gender is in use");
         }
