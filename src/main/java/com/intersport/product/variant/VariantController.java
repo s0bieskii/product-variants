@@ -41,27 +41,18 @@ public class VariantController {
     @GetMapping("/{id}")
     public ResponseEntity getVariant(@PathVariable Long id) {
         VariantDto variant = variantService.getVariant(id);
-        if (variant == null) {
-            return ResponseEntity.badRequest().build();
-        }
         return ResponseEntity.ok(variant);
     }
 
     @PatchMapping()
-    public ResponseEntity updateVariant(VariantUpdateDto variantUpdateDto) {
+    public ResponseEntity updateVariant(@RequestBody VariantUpdateDto variantUpdateDto) {
         VariantDto variant = variantService.update(variantUpdateDto);
-        if (variant == null) {
-            return ResponseEntity.badRequest().build();
-        }
         return ResponseEntity.ok(variant);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteVariant(@PathVariable Long id) {
-        boolean isDeleted = variantService.delete(id);
-        if (!isDeleted) {
-            return ResponseEntity.badRequest().body("Resource with given ID not exist");
-        }
+        variantService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
