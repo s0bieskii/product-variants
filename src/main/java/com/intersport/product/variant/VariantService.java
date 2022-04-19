@@ -2,18 +2,23 @@ package com.intersport.product.variant;
 
 import com.intersport.product.model.ModelRepository;
 import com.intersport.product.size.SizeRepository;
+import com.intersport.product.type.TypeService;
+import com.intersport.product.utils.exceptions.ResourceNotFound;
 import com.intersport.product.variant.dto.VariantAddDto;
 import com.intersport.product.variant.dto.VariantDto;
 import com.intersport.product.variant.dto.VariantMapper;
 import com.intersport.product.variant.dto.VariantUpdateDto;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 @Service
 public class VariantService {
 
+    public static final Logger LOGGER = Logger.getLogger(VariantService.class.getName());
     private final VariantRepository variantRepository;
     private final VariantMapper variantMapper;
     private final ModelRepository modelRepository;
@@ -28,42 +33,58 @@ public class VariantService {
         this.sizeRepository = sizeRepository;
     }
 
+    @SneakyThrows
     public VariantDto create(VariantAddDto variantAddDto) {
+        if(!modelRepository.existsById(variantAddDto.getModelId()) ||
+            !sizeRepository.existsById(variantAddDto.getSizeId())   ){
+            LOGGER.info("Nested resource not found");
+            throw new ResourceNotFound("Nested resource not found");
+        }
         Variant variant = variantMapper.addDtoToVariant(variantAddDto);
         variant.setModel(modelRepository.getById(variantAddDto.getModelId()));
         variant.setSize(sizeRepository.getById(variantAddDto.getSizeId()));
         variantRepository.save(variant);
+        LOGGER.info("Variant create success " + variant);
         return variantMapper.variantToDto(variant);
     }
 
     public List<VariantDto> getAll() {
-        return variantRepository.findAll().stream().map(variantMapper::variantToDto).collect(Collectors.toList());
+        List<Variant> variants = variantRepository.findAll();
+        LOGGER.info("getAll FOUND: " + variants.size() + " variants");
+        return variants.stream().map(variantMapper::variantToDto).collect(Collectors.toList());
     }
 
+    @SneakyThrows
     public VariantDto getVariant(Long id) {
-        Optional<Variant> variant = variantRepository.findById(id);
-        if (!variant.isPresent()) {
-            return null;
-        }
-        return variantMapper.variantToDto(variant.get());
+        LOGGER.info("getModel ID: " + id);
+        return variantRepository.findById(id).map(variantMapper::variantToDto)
+                .orElseThrow(() -> new ResourceNotFound("Variant with given ID not exist ID: " + id));
     }
 
+    @SneakyThrows
     public VariantDto update(VariantUpdateDto variantUpdateDto) {
-        if (!variantRepository.existsById(variantUpdateDto.getId())) {
-            return null;
+        if(!variantRepository.findById(variantUpdateDto.getId()).isPresent()){
+            throw new ResourceNotFound("Model with given ID not exist ID: " + variantUpdateDto.getId());
+        } else if(!modelRepository.existsById(variantUpdateDto.getModelId()) ||
+                !sizeRepository.existsById(variantUpdateDto.getSizeId())   ){
+            LOGGER.info("Nested resource not found");
+            throw new ResourceNotFound("Nested resource not found");
         }
         Variant variant = variantMapper.updateDtoToVariant(variantUpdateDto);
         variant.setSize(sizeRepository.getById(variantUpdateDto.getSizeId()));
         variant.setModel(modelRepository.getById(variantUpdateDto.getModelId()));
         variant = variantRepository.save(variant);
+        LOGGER.info("Variant update success :" + variant);
         return variantMapper.variantToDto(variant);
     }
 
-    public boolean delete(Long id) {
+    @SneakyThrows
+    public void delete(Long id) {
         if (!variantRepository.existsById(id)) {
-            return false;
+            LOGGER.info("Variant with given ID not exist ID: " + id);
+            throw new ResourceNotFound("Variant with given ID not exist ID: " + id);
         }
+        LOGGER.info("Delete success");
         variantRepository.deleteById(id);
-        return true;
     }
 }

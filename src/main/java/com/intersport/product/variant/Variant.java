@@ -3,6 +3,7 @@ package com.intersport.product.variant;
 import com.intersport.product.model.Model;
 import com.intersport.product.size.Size;
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class Variant {
     private String color;
     @OneToOne
     private Size size;
+    @Column(precision = 8, scale = 2)
     private BigDecimal price;
 
 }
