@@ -1,12 +1,13 @@
 package com.intersport.product.size;
 
-import com.intersport.product.category.Category;
 import com.intersport.product.category.CategoryRepository;
 import com.intersport.product.category.CategoryService;
 import com.intersport.product.size.dto.SizeAddDto;
 import com.intersport.product.size.dto.SizeDto;
 import com.intersport.product.size.dto.SizeMapper;
 import com.intersport.product.size.dto.SizeUpdateDto;
+import com.intersport.product.sizecategory.SizeCategory;
+import com.intersport.product.sizecategory.SizeCategoryRepository;
 import com.intersport.product.utils.exceptions.ResourceExistException;
 import com.intersport.product.utils.exceptions.ResourceInUseException;
 import com.intersport.product.utils.exceptions.ResourceNotFound;
@@ -26,28 +27,32 @@ public class SizeService {
     private final SizeMapper sizeMapper;
     private final VariantRepository variantRepository;
     private final CategoryRepository categoryRepository;
+    private final SizeCategoryRepository sizeCategoryRepository;
 
     public SizeService(SizeRepository sizeRepository, SizeMapper sizeMapper,
-                       VariantRepository variantRepository, CategoryRepository categoryRepository) {
+                       VariantRepository variantRepository,
+                       CategoryRepository categoryRepository,
+                       SizeCategoryRepository sizeCategoryRepository) {
         this.sizeRepository = sizeRepository;
         this.sizeMapper = sizeMapper;
         this.variantRepository = variantRepository;
         this.categoryRepository = categoryRepository;
+        this.sizeCategoryRepository = sizeCategoryRepository;
     }
 
     @SneakyThrows
     public SizeDto create(SizeAddDto sizeAddDto) {
         LOGGER.info("create " + sizeAddDto);
-        Optional<Category> categoryExist = categoryRepository.findById(sizeAddDto.categoryId());
+        Optional<SizeCategory> categoryExist = sizeCategoryRepository.findById(sizeAddDto.categoryId());
         if (!categoryExist.isPresent()) {
-            LOGGER.info("Category with given ID not exist ID: " + sizeAddDto.categoryId());
-            throw new ResourceNotFound("Category with given ID not exist ID: " + sizeAddDto.categoryId());
-        } else if (sizeRepository.findBySizeAndCategoryId(sizeAddDto.size(), sizeAddDto.categoryId()).isPresent()) {
+            LOGGER.info("Size category with given ID not exist ID: " + sizeAddDto.categoryId());
+            throw new ResourceNotFound("Size category with given ID not exist ID: " + sizeAddDto.categoryId());
+        } else if (sizeRepository.findBySizeAndSizeCategoryId(sizeAddDto.size(), sizeAddDto.categoryId()).isPresent()) {
             LOGGER.info("Size with given name and category exist");
             throw new ResourceExistException("Size with given name and category exist");
         }
         Size size = sizeMapper.addDtoToSize(sizeAddDto);
-        size.setCategory(categoryRepository.getById(sizeAddDto.categoryId()));
+        size.setSizeCategory(sizeCategoryRepository.getById(sizeAddDto.categoryId()));
         size = sizeRepository.save(size);
         LOGGER.info("Size create success " + size);
         return sizeMapper.sizeToDto(size);
@@ -79,7 +84,7 @@ public class SizeService {
         }
 
         Size size = sizeMapper.updateDtoToSize(sizeUpdateDto);
-        size.setCategory(categoryRepository.getById(sizeUpdateDto.categoryId()));
+        size.setSizeCategory(sizeCategoryRepository.getById(sizeUpdateDto.categoryId()));
         size = sizeRepository.save(size);
         LOGGER.info("Size update success: " + size);
         return sizeMapper.sizeToDto(size);
