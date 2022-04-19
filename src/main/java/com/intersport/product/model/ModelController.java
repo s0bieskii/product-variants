@@ -6,7 +6,6 @@ import com.intersport.product.model.dto.ModelUpdateDto;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,12 +56,9 @@ public class ModelController {
         return ResponseEntity.ok(genderAfterUpdate);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteModel(@PathVariable Long id) {
-        boolean deleteSuccess = modelService.deleteModel(id);
-        if (!deleteSuccess) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Resource is in use");
-        }
+        modelService.deleteModel(id);
         return ResponseEntity.noContent().build();
     }
 }

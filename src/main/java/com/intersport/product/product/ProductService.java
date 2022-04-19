@@ -11,6 +11,7 @@ import com.intersport.product.product.dto.ProductMapper;
 import com.intersport.product.product.dto.ProductUpdateDto;
 import com.intersport.product.product.dto.ProductWithModelAddDto;
 import com.intersport.product.type.TypeRepository;
+import com.intersport.product.utils.exceptions.ResourceExistException;
 import com.intersport.product.utils.exceptions.ResourceNotFound;
 import java.util.List;
 import java.util.logging.Logger;
@@ -107,13 +108,14 @@ public class ProductService {
                 !modelRepository.existsById(productToUpdate.modelId())
                 || !categoryRepository.existsById(productToUpdate.categoryId())) {
             LOGGER.info("Nested resource not found");
-            throw new ResourceNotFound("Nested resource not found");
+            throw new ResourceExistException("Nested resource not found");
         }
         Product product = productMapper.productUpdate(productToUpdate);
         product.setModel(modelRepository.getById(productToUpdate.modelId()));
         product.setBrand(brandRepository.getById(productToUpdate.brandId()));
         product.setCategory(categoryRepository.getById(productToUpdate.categoryId()));
         product = productRepository.save(product);
+        LOGGER.info("Product update success :" + product);
         return productMapper.productToDto(product);
     }
 
@@ -123,6 +125,7 @@ public class ProductService {
             LOGGER.info("Product with given ID not exist ID: " + id);
             throw new ResourceNotFound("Product with given ID not exist ID: " + id);
         }
+        LOGGER.info("Delete success");
         productRepository.delete(productRepository.getById(id));
     }
 
