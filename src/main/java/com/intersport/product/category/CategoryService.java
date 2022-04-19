@@ -76,7 +76,7 @@ public class CategoryService {
             LOGGER.warning("Category with given ID not exist");
             throw new ResourceNotFound("Category with given ID not exist");
         } else if (!productRepository.findByCategoryId(id).isEmpty() ||
-                !sizeRepository.findByCategoryId(id).isEmpty()) {
+                !sizeRepository.findBySizeCategoryId(id).isEmpty()) {
             LOGGER.info("Category is in use");
             throw new ResourceInUseException("Category is in use");
         }
