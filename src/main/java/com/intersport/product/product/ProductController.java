@@ -25,7 +25,8 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public ResponseEntity createProductWithModel(@RequestBody ProductWithModelAddDto productToAdd) throws URISyntaxException {
+    public ResponseEntity createProductWithModel(@RequestBody ProductWithModelAddDto productToAdd)
+            throws URISyntaxException {
         Product savedProduct = productService.createProductWithModel(productToAdd);
         return ResponseEntity.created(new URI("/api/products/" + savedProduct.getId())).build();
     }
