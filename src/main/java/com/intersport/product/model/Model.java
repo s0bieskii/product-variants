@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,7 +15,8 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
+//@ToString
+@Table(name = "MODELS")
 public class Model {
 
     @Id
