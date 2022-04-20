@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysqldb:
-    image: mysql:5.7
+    image: mysql:8.0.22
     env_file: ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
@@ -12,7 +12,6 @@ services:
     volumes:
       - db:/var/lib/mysql
   app:
-    image: intersport
     depends_on:
       - mysqldb
     build: ../product
@@ -26,8 +25,6 @@ services:
         "spring.datasource.username" : "$MYSQLDB_USER",
         "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-        "spring.jpa.generate-ddl" : "false",
-        "spring.jpa.hibernate.ddl-auto" : "false",
         "spring.jpa.show-sql" : "true"
       }'
     volumes:

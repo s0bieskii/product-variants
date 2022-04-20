@@ -2,14 +2,12 @@ package com.intersport.product.variant;
 
 import com.intersport.product.model.ModelRepository;
 import com.intersport.product.size.SizeRepository;
-import com.intersport.product.type.TypeService;
 import com.intersport.product.utils.exceptions.ResourceNotFound;
 import com.intersport.product.variant.dto.VariantAddDto;
 import com.intersport.product.variant.dto.VariantDto;
 import com.intersport.product.variant.dto.VariantMapper;
 import com.intersport.product.variant.dto.VariantUpdateDto;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import lombok.SneakyThrows;
@@ -35,8 +33,8 @@ public class VariantService {
 
     @SneakyThrows
     public VariantDto create(VariantAddDto variantAddDto) {
-        if(!modelRepository.existsById(variantAddDto.getModelId()) ||
-            !sizeRepository.existsById(variantAddDto.getSizeId())   ){
+        if (!modelRepository.existsById(variantAddDto.getModelId()) ||
+                !sizeRepository.existsById(variantAddDto.getSizeId())) {
             LOGGER.info("Nested resource not found");
             throw new ResourceNotFound("Nested resource not found");
         }
@@ -63,10 +61,10 @@ public class VariantService {
 
     @SneakyThrows
     public VariantDto update(VariantUpdateDto variantUpdateDto) {
-        if(!variantRepository.findById(variantUpdateDto.getId()).isPresent()){
+        if (!variantRepository.findById(variantUpdateDto.getId()).isPresent()) {
             throw new ResourceNotFound("Model with given ID not exist ID: " + variantUpdateDto.getId());
-        } else if(!modelRepository.existsById(variantUpdateDto.getModelId()) ||
-                !sizeRepository.existsById(variantUpdateDto.getSizeId())   ){
+        } else if (!modelRepository.existsById(variantUpdateDto.getModelId()) ||
+                !sizeRepository.existsById(variantUpdateDto.getSizeId())) {
             LOGGER.info("Nested resource not found");
             throw new ResourceNotFound("Nested resource not found");
         }

@@ -18,8 +18,8 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-//@ToString
-@Table(name = "VARIANTS")
+@ToString
+@Table(name = "variants")
 public class Variant {
 
     @Id
