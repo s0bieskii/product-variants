@@ -12,9 +12,10 @@ services:
     volumes:
       - db:/var/lib/mysql
   app:
+    image: intersport
     depends_on:
       - mysqldb
-    build: ../CDQTask
+    build: ../product
     restart: on-failure
     env_file: ./.env
     ports:
@@ -25,8 +26,8 @@ services:
         "spring.datasource.username" : "$MYSQLDB_USER",
         "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-        "spring.jpa.hibernate.ddl-auto" : "update",
-        "spring.jpa.generate-ddl" : "true",
+        "spring.jpa.generate-ddl" : "false",
+        "spring.jpa.hibernate.ddl-auto" : "false",
         "spring.jpa.show-sql" : "true"
       }'
     volumes:

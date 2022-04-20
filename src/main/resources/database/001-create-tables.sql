@@ -1,0 +1,82 @@
+--liquibase formatted sql
+--changeset intersport:1
+CREATE TABLE CATEGORIES (
+  ID bigint NOT NULL AUTO_INCREMENT,
+  NAME varchar(255) DEFAULT NULL,
+  PRIMARY KEY (ID)
+)
+--changeset intersport:2
+CREATE TABLE BRANDS (
+  ID bigint NOT NULL AUTO_INCREMENT,
+  NAME varchar(255) DEFAULT NULL,
+  PRIMARY KEY (ID)
+)
+
+
+--changeset intersport:3
+CREATE TABLE GENDERS (
+  ID bigint NOT NULL,
+  NAME varchar(255) DEFAULT NULL,
+  PRIMARY KEY (ID)
+)
+--changeset intersport:4
+CREATE TABLE TYPES (
+  ID bigint NOT NULL AUTO_INCREMENT,
+  NAME varchar(255) DEFAULT NULL,
+  PRIMARY KEY (ID)
+)
+--changeset intersport:5
+CREATE TABLE MODELS (
+  ID bigint NOT NULL AUTO_INCREMENT,
+  NAME varchar(255) DEFAULT NULL,
+  GENDER_ID bigint DEFAULT NULL,
+  TYPE_ID bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK3e1ai0q34fvq0wu1m52cn8847` (`gender_id`),
+  KEY `FKpeqw8pxrounx8ciwn2cee0u4s` (`type_id`),
+  CONSTRAINT `FK3e1ai0q34fvq0wu1m52cn8847` FOREIGN KEY (`gender_id`) REFERENCES `genders` (`id`),
+  CONSTRAINT `FKpeqw8pxrounx8ciwn2cee0u4s` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`)
+)
+--changeset intersport:6
+CREATE TABLE SIZE_CATEGORIES (
+  ID bigint NOT NULL AUTO_INCREMENT,
+  NAME varchar(255) DEFAULT NULL,
+  PRIMARY KEY (ID)
+)
+--changeset intersport:7
+CREATE TABLE SIZES (
+  ID bigint NOT NULL,
+  SIZES varchar(255) DEFAULT NULL,
+  SIZE_CATEGORY_ID bigint DEFAULT NULL,
+  PRIMARY KEY (ID),
+  KEY `FKmtqre73tiari0qnemmcx2ip82` (SIZE_CATEGORY_ID),
+  CONSTRAINT `FKmtqre73tiari0qnemmcx2ip82` FOREIGN KEY (SIZE_CATEGORY_ID) REFERENCES SIZE_CATEGORIES (ID)
+)
+--changeset intersport:8
+CREATE TABLE PRODUCTS (
+  ID bigint NOT NULL AUTO_INCREMENT,
+  ARCHIVED bit(1) NOT NULL,
+  BRAND_ID bigint DEFAULT NULL,
+  CATEGORY_ID bigint DEFAULT NULL,
+  MODEL_ID bigint DEFAULT NULL,
+  PRIMARY KEY (ID),
+  KEY `FKa3a4mpsfdf4d2y6r8ra3sc8mv` (BRAND_ID),
+  KEY `FKog2rp4qthbtt2lfyhfo32lsw9` (CATEGORY_ID),
+  KEY `FK29c4nbv58vgu9wg14fd8ac4xy` (MODEL_ID),
+  CONSTRAINT `FK29c4nbv58vgu9wg14fd8ac4xy` FOREIGN KEY (MODEL_ID) REFERENCES MODELS (ID),
+  CONSTRAINT `FKa3a4mpsfdf4d2y6r8ra3sc8mv` FOREIGN KEY (BRAND_ID) REFERENCES BRANDS (ID),
+  CONSTRAINT `FKog2rp4qthbtt2lfyhfo32lsw9` FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORIES (ID)
+)
+--changeset intersport:9
+CREATE TABLE VARIANTS (
+  ID bigint NOT NULL AUTO_INCREMENT,
+  COLOR varchar(255) DEFAULT NULL,
+  PRICE decimal(8,2) DEFAULT NULL,
+  MODEL_ID bigint DEFAULT NULL,
+  SIZE_ID bigint DEFAULT NULL,
+  PRIMARY KEY (ID),
+  KEY `FKmxurvhsy064u97v5aqs4a627x` (MODEL_ID),
+  KEY `FKpj3hv14tks24dgi529b1t9k8f` (SIZE_ID),
+  CONSTRAINT `FKmxurvhsy064u97v5aqs4a627x` FOREIGN KEY (MODEL_ID) REFERENCES MODELS (ID),
+  CONSTRAINT `FKpj3hv14tks24dgi529b1t9k8f` FOREIGN KEY (SIZE_ID) REFERENCES SIZES (ID)
+)
