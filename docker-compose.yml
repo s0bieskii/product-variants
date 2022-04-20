@@ -14,7 +14,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    build: ../product
+    build: ../product-variants
     restart: on-failure
     env_file: ./.env
     ports:
