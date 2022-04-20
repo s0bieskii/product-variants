@@ -13,9 +13,9 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-//@NoArgsConstructor
-//@ToString
-@Table(name = "SIZE_CATEGORIES")
+@NoArgsConstructor
+@ToString
+@Table(name = "size_categories")
 public class SizeCategory {
 
     @Id

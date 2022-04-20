@@ -28,7 +28,8 @@ public class SizeCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity createSizeCategory(@RequestBody SizeCategoryAddDto sizeCategoryAddDto) throws URISyntaxException {
+    public ResponseEntity createSizeCategory(@RequestBody SizeCategoryAddDto sizeCategoryAddDto)
+            throws URISyntaxException {
         SizeCategoryDto sizeCategory = sizeCategoryService.create(sizeCategoryAddDto);
         return ResponseEntity.created(new URI("/api/size-category/" + sizeCategory.id())).body(sizeCategory);
     }
@@ -46,7 +47,8 @@ public class SizeCategoryController {
     }
 
     @PatchMapping
-    public ResponseEntity<SizeCategoryDto> updateSizeCategory(@RequestBody SizeCategoryUpdateDto sizeCategoryUpdateDto) {
+    public ResponseEntity<SizeCategoryDto> updateSizeCategory(
+            @RequestBody SizeCategoryUpdateDto sizeCategoryUpdateDto) {
         SizeCategoryDto sizeCategoryAfterUpdate = sizeCategoryService.updateSizeCategory(sizeCategoryUpdateDto);
         return ResponseEntity.ok(sizeCategoryAfterUpdate);
     }

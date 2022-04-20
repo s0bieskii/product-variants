@@ -3,7 +3,6 @@ package com.intersport.product.size;
 import com.intersport.product.sizecategory.SizeCategory;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -15,14 +14,14 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-//@ToString
-@Table(name = "SIZES")
+@ToString
+@Table(name = "sizes")
 public class Size {
 
     @Id
     @GeneratedValue
     private Long id;
-    @Column(name = "SIZES")
+    @Column(name = "sizes")
     private String size;
     @OneToOne
     private SizeCategory sizeCategory;

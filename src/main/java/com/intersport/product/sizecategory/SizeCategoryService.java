@@ -1,6 +1,5 @@
 package com.intersport.product.sizecategory;
 
-import com.intersport.product.gender.Gender;
 import com.intersport.product.gender.GenderService;
 import com.intersport.product.size.SizeRepository;
 import com.intersport.product.sizecategory.dto.SizeCategoryAddDto;
@@ -11,7 +10,6 @@ import com.intersport.product.utils.exceptions.ResourceExistException;
 import com.intersport.product.utils.exceptions.ResourceInUseException;
 import com.intersport.product.utils.exceptions.ResourceNotFound;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import lombok.SneakyThrows;
